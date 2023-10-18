@@ -61,12 +61,6 @@ public class SchoolConcept : IComparable<SchoolConcept>
     }
 }
 
-[Serializable]
-public class RootObject
-{
-    public SchoolConcept[] concepts;
-}
-
 public class DataFetch : MonoBehaviour
 {
     [SerializeField] private string uri = "https://ga1vqcu3o1.execute-api.us-east-1.amazonaws.com/Assessment/stack";
@@ -76,8 +70,16 @@ public class DataFetch : MonoBehaviour
     private List<SchoolConcept> Concepts7th = new List<SchoolConcept>();
     private List<SchoolConcept> Concepts8th = new List<SchoolConcept>();
 
+    private bool hasLoaded = false;
+
+    static public DataFetch Instance { get; private set; }
+
     void Start()
     {
+        Instance = this;
+
+        Physics.simulationMode = SimulationMode.Script;
+
         StartCoroutine(GetRequest(uri));
     }
 
@@ -102,7 +104,6 @@ public class DataFetch : MonoBehaviour
                     break;
                 case UnityWebRequest.Result.Success:
                     string jsonResponse = webRequest.downloadHandler.text;
-                    Debug.Log(pages[page] + ":\nReceived: " + jsonResponse);
 
                     string fixedJson = JsonHelper.FixJson(jsonResponse);
                     info = JsonHelper.FromJson<SchoolConcept>(fixedJson);
@@ -110,11 +111,16 @@ public class DataFetch : MonoBehaviour
                     info.Sort();
 
                     AddConceptsToLists();
+                    hasLoaded = true;
 
-                    PrintConcepts();
                     break;
             }
         }
+    }
+
+    public bool HasLoaded()
+    {
+        return hasLoaded;
     }
 
     public List<SchoolConcept> GetInfo()
@@ -122,9 +128,39 @@ public class DataFetch : MonoBehaviour
         return info;
     }
 
+    public List<SchoolConcept> Get6thGradeConcepts()
+    {
+        return Concepts6th;
+    }
+
+    public List<SchoolConcept> Get7thGradeConcepts()
+    {
+        return Concepts7th;
+    }
+
+    public List<SchoolConcept> Get8thGradeConcepts()
+    {
+        return Concepts8th;
+    }
+
+    public List<SchoolConcept> GetConceptsForGrade(int grade)
+    {
+        switch (grade)
+        {
+            case 6:
+            default:
+                return Get6thGradeConcepts();
+            case 7:
+                return Get7thGradeConcepts();
+            case 8:
+                return Get8thGradeConcepts();
+        }
+    }
+
+
     private void AddConceptsToLists()
     {
-        List<SchoolConcept> concepts = GetInfo();
+        List<SchoolConcept> concepts = DataFetch.Instance.GetInfo();
 
         for (int i = 0; i < concepts.Count; i++)
         {
@@ -134,7 +170,7 @@ public class DataFetch : MonoBehaviour
             {
                 Concepts6th.Add(concept);
             }
-            else if(concept.grade == "7th Grade")
+            else if (concept.grade == "7th Grade")
             {
                 Concepts7th.Add(concept);
             }
