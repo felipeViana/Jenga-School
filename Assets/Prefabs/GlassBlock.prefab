@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 859514220356363663}
   m_Layer: 0
   m_Name: GlassBlock
-  m_TagString: Untagged
+  m_TagString: glass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

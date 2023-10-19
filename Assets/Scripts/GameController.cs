@@ -7,11 +7,11 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] GameObject[] Stacks;
+    [SerializeField] private GameObject[] Stacks;
+    [SerializeField] private GameObject TestMyStackButton;
+    [SerializeField] private float speed = 1f;
 
-    [SerializeField] float speed = 1f;
-
-    private int selectedStack = -1;
+    private int selectedStackIndex = -1;
 
     private Vector3 mouseDownPosition;
     private Vector3 cameraStartPosition;
@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        TestMyStackButton.SetActive(false);
         cameraTransform = Camera.main.transform;
 
         cameraStartPosition = cameraTransform.position;
@@ -36,9 +37,9 @@ public class GameController : MonoBehaviour
 
     private void ControlCamera()
     {
-        if (selectedStack != -1)
+        if (selectedStackIndex != -1)
         {
-            cameraTransform.LookAt(Stacks[selectedStack].transform.position);
+            cameraTransform.LookAt(Stacks[selectedStackIndex].transform.position);
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -63,38 +64,76 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp("right"))
         {
-            selectedStack++;
-            if (selectedStack >= Stacks.Length)
+            TestMyStackButton.SetActive(true);
+            selectedStackIndex++;
+            if (selectedStackIndex >= Stacks.Length)
             {
-                selectedStack = 0;
+                selectedStackIndex = 0;
             }
             MoveCameraToStack();
         }
         else if (Input.GetKeyUp("left"))
         {
-            selectedStack--;
-            if (selectedStack < 0)
+            TestMyStackButton.SetActive(true);
+            selectedStackIndex--;
+            if (selectedStackIndex < 0)
             {
-                selectedStack = Stacks.Length - 1;
+                selectedStackIndex = Stacks.Length - 1;
             }
 
             MoveCameraToStack();
         }
         else if (Input.GetKeyUp("space"))
         {
-            selectedStack = -1;
+            TestMyStackButton.SetActive(false);
+            selectedStackIndex = -1;
             ResetCamera();
         }
     }
 
     private void MoveCameraToStack()
     {
-        cameraTransform.position = Stacks[selectedStack].transform.position + Vector3.back * 15 + Vector3.up * 6;
+        cameraTransform.position = Stacks[selectedStackIndex].transform.position + Vector3.back * 15 + Vector3.up * 6;
     }
 
     private void ResetCamera()
     {
         cameraTransform.position = cameraStartPosition;
         cameraTransform.eulerAngles = cameraStartRotation;
+    }
+
+    public void TestMyStack()
+    {
+        Physics.simulationMode = SimulationMode.FixedUpdate;
+
+        EliminateGlassesBlocks();
+    }
+
+    private void EliminateGlassesBlocks()
+    {
+        GameObject selectedStack = Stacks[selectedStackIndex];
+
+        for (int i = 0; i < selectedStack.transform.childCount; i++)
+        {
+            GameObject currentRow = selectedStack.transform.GetChild(i).gameObject;
+
+            for (int j = 0; j < currentRow.transform.childCount; j++)
+            {
+                GameObject currentPosition = currentRow.transform.GetChild(j).gameObject;
+
+                if (currentPosition.transform.childCount > 0)
+                {
+                    GameObject block = currentPosition.transform.GetChild(0).gameObject;
+
+                    if (block.tag == "glass")
+                    {
+                        Destroy(block);
+                    }
+                }
+            }
+
+        }
+
+        
     }
 }
