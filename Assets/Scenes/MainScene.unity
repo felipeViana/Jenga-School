@@ -936,6 +936,8 @@ MonoBehaviour:
   speed: 0.001
   textBackground: {fileID: 23158027}
   blockInfoText: {fileID: 1803106960}
+  timeToShowInfoText: 5
+  highlightMaterial: {fileID: 2100000, guid: 966569b081f99934c8af08d419088027, type: 2}
 --- !u!1001 &1147656829
 PrefabInstance:
   m_ObjectHideFlags: 0

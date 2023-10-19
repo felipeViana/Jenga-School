@@ -15,6 +15,10 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameObject textBackground;
     [SerializeField] private GameObject blockInfoText;
+    [SerializeField] private float timeToShowInfoText = 2f;
+    private float timeShowingInfoText = 0f;
+
+    [SerializeField] private Material highlightMaterial;
 
     private int selectedStackIndex = -1;
 
@@ -42,6 +46,12 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        timeShowingInfoText += Time.deltaTime;
+        if (timeShowingInfoText > timeToShowInfoText)
+        {
+            SetActiveInfoText(false);
+        }
+
         ChangeSelectedStack();
 
         ControlCamera();
@@ -156,12 +166,24 @@ public class GameController : MonoBehaviour
 
     public void SetActiveInfoText(bool active)
     {
+        timeShowingInfoText = 0;
+
         textBackground.SetActive(active);
         blockInfoText.SetActive(active);
+    }
+
+    public bool IsInfoTextActive()
+    {
+        return textBackground.activeSelf;
     }
 
     public void SetBlockInfoText(string newText)
     {
         blockInfoText.GetComponent<TMP_Text>().text = newText;
+    }
+
+    public Material GetHighlightMaterial()
+    {
+        return highlightMaterial;
     }
 }

@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Block : MonoBehaviour
 {
+    private Material originalMaterial;
     private SchoolConcept concept = null;
 
     void Start()
     {
+        originalMaterial = this.gameObject.GetComponent<MeshRenderer>().material;
         GameController.Instance.SetActiveInfoText(false);
     }
 
@@ -25,10 +28,17 @@ public class Block : MonoBehaviour
 
     private void OnMouseOver()
     {
+        Material highlightMaterial = GameController.Instance.GetHighlightMaterial();
+        this.gameObject.GetComponent<MeshRenderer>().material = highlightMaterial;
         if (Input.GetMouseButtonUp(1))
         {
             GameController.Instance.SetActiveInfoText(true);
             GameController.Instance.SetBlockInfoText(concept.ToString());
         }
+    }
+
+    private void OnMouseExit()
+    {
+        this.gameObject.GetComponent<MeshRenderer>().material = originalMaterial;
     }
 }
