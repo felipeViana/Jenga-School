@@ -386,8 +386,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1100785644}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1100785646}
+        m_TargetAssemblyTypeName: ButtonsManager, Assembly-CSharp
         m_MethodName: RestartStacks
         m_Mode: 1
         m_Arguments:
@@ -519,8 +519,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1100785644}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 1100785646}
+        m_TargetAssemblyTypeName: ButtonsManager, Assembly-CSharp
         m_MethodName: TestMyStack
         m_Mode: 1
         m_Arguments:
@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -892,6 +893,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524baee546da8024ea280c7b5e32279a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1 &1026960446 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3634245406924159526, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
@@ -907,6 +921,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1100785643}
   - component: {fileID: 1100785644}
+  - component: {fileID: 1100785645}
+  - component: {fileID: 1100785646}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -941,17 +957,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee62bd7c04ee19478be8101d6f57028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textBackground: {fileID: 23158027}
+  blockInfoText: {fileID: 1803106960}
+  timeToShowInfoText: 5
+  highlightMaterial: {fileID: 2100000, guid: 966569b081f99934c8af08d419088027, type: 2}
+--- !u!114 &1100785645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100785642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b34d25ec2a6ea4883c2f618e2e7979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Stacks:
   - {fileID: 781818094}
   - {fileID: 2015322930}
   - {fileID: 899693759}
   TestMyStackButton: {fileID: 237269264}
   RestartButton: {fileID: 116840257}
-  speed: 0.001
-  textBackground: {fileID: 23158027}
-  blockInfoText: {fileID: 1803106960}
-  timeToShowInfoText: 5
-  highlightMaterial: {fileID: 2100000, guid: 966569b081f99934c8af08d419088027, type: 2}
+--- !u!114 &1100785646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100785642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e404c910af3f484c8c038334115e00d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1147656829
 PrefabInstance:
   m_ObjectHideFlags: 0
