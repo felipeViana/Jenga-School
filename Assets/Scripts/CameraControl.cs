@@ -17,8 +17,6 @@ public class CameraControl : MonoBehaviour
         GameObject selectedStack = GameController.Instance.GetComponent<StackSelection>().GetSelectedStack();
         if (selectedStack)
         {
-            transform.LookAt(selectedStack.transform.position);
-
             if (Input.GetMouseButtonDown(0))
             {
                 mouseDownPosition = Input.mousePosition;
@@ -26,17 +24,16 @@ public class CameraControl : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                Vector3 directionToMove = Input.mousePosition - mouseDownPosition;
-                transform.Translate(directionToMove * speed * Time.deltaTime);
-            }
+                Vector3 directionToMove = (Input.mousePosition - mouseDownPosition).normalized;
 
-            if (transform.position.y < 0.5f)
-            {
-                transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
-            }
-            else if (transform.position.y > 20f)
-            {
-                transform.position = new Vector3(transform.position.x, 20f, transform.position.z);
+                if (directionToMove.x > 0)
+                {
+                    transform.Rotate(speed * Time.deltaTime * Vector3.down);
+                }
+                else if (directionToMove.x < 0)
+                {
+                    transform.Rotate(speed * Time.deltaTime * Vector3.up);
+                }
             }
         }
     }

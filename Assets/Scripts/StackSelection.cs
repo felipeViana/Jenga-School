@@ -7,6 +7,7 @@ public class StackSelection : MonoBehaviour
     [SerializeField] private GameObject[] Stacks;
     [SerializeField] private GameObject TestMyStackButton;
     [SerializeField] private GameObject RestartButton;
+    [SerializeField] private GameObject CameraCentralPoint;
     
     private int selectedStackIndex = -1;
     private Transform cameraTransform;
@@ -72,7 +73,24 @@ public class StackSelection : MonoBehaviour
             Stacks[i].GetComponent<Stack>().SetActiveLight(false);
         }
 
-        cameraTransform.position = Stacks[selectedStackIndex].transform.position + Vector3.back * 15 + Vector3.up * 6;
+        switch (selectedStackIndex)
+        {
+            case 0:
+            default:
+                CameraCentralPoint.transform.position = new Vector3(-20, CameraCentralPoint.transform.position.y, CameraCentralPoint.transform.position.z);
+                break;
+            case 1:
+                CameraCentralPoint.transform.position = new Vector3(0, CameraCentralPoint.transform.position.y, CameraCentralPoint.transform.position.z);
+                break;
+            case 2:
+                CameraCentralPoint.transform.position = new Vector3(20, CameraCentralPoint.transform.position.y, CameraCentralPoint.transform.position.z);
+                break;
+        }
+
+        cameraTransform.position = Stacks[selectedStackIndex].transform.position + Vector3.back * 17 + Vector3.up * 6;
+        CameraCentralPoint.transform.Rotate(Vector3.zero);
+        cameraTransform.LookAt(CameraCentralPoint.transform.position);
+
         Stacks[selectedStackIndex].GetComponent<Stack>().SetActiveLight(true);
     }
 
