@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject RestartButton;
     [SerializeField] private float speed = 1f;
 
+    [SerializeField] private GameObject textBackground;
+    [SerializeField] private GameObject blockInfoText;
+
     private int selectedStackIndex = -1;
 
     private Vector3 mouseDownPosition;
@@ -20,10 +24,16 @@ public class GameController : MonoBehaviour
 
     private Transform cameraTransform;
 
+    public static GameController Instance { get; private set; }
+
     void Start()
     {
+        Instance = this;
+
         TestMyStackButton.SetActive(false);
         RestartButton.SetActive(false);
+        SetActiveInfoText(false);
+
         cameraTransform = Camera.main.transform;
 
         cameraStartPosition = cameraTransform.position;
@@ -142,5 +152,16 @@ public class GameController : MonoBehaviour
     {
         GameObject selectedStack = Stacks[selectedStackIndex];
         selectedStack.GetComponent<Stack>().CreateBlocks();
+    }
+
+    public void SetActiveInfoText(bool active)
+    {
+        textBackground.SetActive(active);
+        blockInfoText.SetActive(active);
+    }
+
+    public void SetBlockInfoText(string newText)
+    {
+        blockInfoText.GetComponent<TMP_Text>().text = newText;
     }
 }

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Block : MonoBehaviour
 {
-    private GameObject blockInfoText;
     private SchoolConcept concept = null;
 
     void Start()
     {
-        blockInfoText = GameObject.Find("BlockInfoText");
+        GameController.Instance.SetActiveInfoText(false);
     }
 
     public SchoolConcept GetConcept()
@@ -27,7 +27,8 @@ public class Block : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(1))
         {
-            blockInfoText.GetComponent<TMP_Text>().text = concept.ToString();
+            GameController.Instance.SetActiveInfoText(true);
+            GameController.Instance.SetBlockInfoText(concept.ToString());
         }
     }
 }
