@@ -180,12 +180,4 @@ public class DataFetch : MonoBehaviour
             }
         }
     }
-
-    private void PrintConcepts()
-    {
-        foreach (var concept in Concepts7th)
-        {
-            Debug.Log(concept.ToString());
-        }
-    }
 }

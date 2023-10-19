@@ -66,17 +66,24 @@ public class Stack : MonoBehaviour
 
     private GameObject CreateBlockAt(Transform transform, SchoolConcept concept)
     {
+        GameObject newBlock;
         switch (concept.mastery)
         {
             case 0:
             default:
-                return Instantiate(GlassBlock, transform);
+                newBlock = Instantiate(GlassBlock, transform);
+                break;
 
             case 1:
-                return Instantiate(WoodBlock, transform);
+                newBlock = Instantiate(WoodBlock, transform);
+                break;
 
             case 2:
-                return Instantiate(StoneBlock, transform);
+                newBlock = Instantiate(StoneBlock, transform);
+                break;
         }
+
+        newBlock.GetComponent<Block>().SetConcept(concept);
+        return newBlock;
     }
 }
