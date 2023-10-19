@@ -569,6 +569,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237269264}
   m_CullTransparentMesh: 1
+--- !u!1 &443378323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8022406109640828121, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
+  m_PrefabInstance: {fileID: 1147656829}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &514672950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,6 +626,10 @@ PrefabInstance:
       propertyPath: Label
       value: 
       objectReference: {fileID: 1026960446}
+    - target: {fileID: 3702525549310456704, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
+      propertyPath: Light
+      value: 
+      objectReference: {fileID: 1745400172}
     - target: {fileID: 3702525549310456704, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
       propertyPath: grade
       value: 8
@@ -780,6 +789,11 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8298598524106348335, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
   m_PrefabInstance: {fileID: 1147656829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &858897899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8022406109640828121, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
+  m_PrefabInstance: {fileID: 2069157127}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &899693759 stripped
 GameObject:
@@ -990,6 +1004,10 @@ PrefabInstance:
       propertyPath: Label
       value: 
       objectReference: {fileID: 1332948345}
+    - target: {fileID: 3702525549310456704, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
+      propertyPath: Light
+      value: 
+      objectReference: {fileID: 443378323}
     - target: {fileID: 3702525549310456704, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
       propertyPath: grade
       value: 6
@@ -1324,6 +1342,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1745400172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8022406109640828121, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
+  m_PrefabInstance: {fileID: 514672950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1774011718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,6 +1672,10 @@ PrefabInstance:
       propertyPath: Label
       value: 
       objectReference: {fileID: 1347883835}
+    - target: {fileID: 3702525549310456704, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
+      propertyPath: Light
+      value: 
+      objectReference: {fileID: 858897899}
     - target: {fileID: 3702525549310456704, guid: d4f06d7fb5781404ebdc252ff1f330a7, type: 3}
       propertyPath: grade
       value: 7

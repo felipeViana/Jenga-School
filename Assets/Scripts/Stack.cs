@@ -13,6 +13,8 @@ public class Stack : MonoBehaviour
 
     [SerializeField] private GameObject Label;
 
+    [SerializeField] private GameObject Light;
+
     [SerializeField] private int grade;
 
     private bool hasLoaded = false;
@@ -22,6 +24,7 @@ public class Stack : MonoBehaviour
     private void Start()
     {
         UpdateLabelText();
+        Light.SetActive(false);
     }
 
     private void UpdateLabelText()
@@ -130,5 +133,10 @@ public class Stack : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetActiveLight(bool active)
+    {
+        Light.SetActive(active);
     }
 }

@@ -118,7 +118,13 @@ public class GameController : MonoBehaviour
 
     private void MoveCameraToStack()
     {
+        for (int i = 0; i < Stacks.Length; i++)
+        {
+            Stacks[i].GetComponent<Stack>().SetActiveLight(false);
+        }
+
         cameraTransform.position = Stacks[selectedStackIndex].transform.position + Vector3.back * 15 + Vector3.up * 6;
+        Stacks[selectedStackIndex].GetComponent<Stack>().SetActiveLight(true);
     }
 
     private void ResetCamera()
