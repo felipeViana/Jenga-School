@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject[] Stacks;
     [SerializeField] private GameObject TestMyStackButton;
+    [SerializeField] private GameObject RestartButton;
     [SerializeField] private float speed = 1f;
 
     private int selectedStackIndex = -1;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         TestMyStackButton.SetActive(false);
+        RestartButton.SetActive(false);
         cameraTransform = Camera.main.transform;
 
         cameraStartPosition = cameraTransform.position;
@@ -65,6 +67,7 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyUp("right"))
         {
             TestMyStackButton.SetActive(true);
+            RestartButton.SetActive(true);
             selectedStackIndex++;
             if (selectedStackIndex >= Stacks.Length)
             {
@@ -75,6 +78,7 @@ public class GameController : MonoBehaviour
         else if (Input.GetKeyUp("left"))
         {
             TestMyStackButton.SetActive(true);
+            RestartButton.SetActive(true);
             selectedStackIndex--;
             if (selectedStackIndex < 0)
             {
@@ -86,6 +90,7 @@ public class GameController : MonoBehaviour
         else if (Input.GetKeyUp("space"))
         {
             TestMyStackButton.SetActive(false);
+            RestartButton.SetActive(false);
             selectedStackIndex = -1;
             ResetCamera();
         }
@@ -112,28 +117,30 @@ public class GameController : MonoBehaviour
     private void EliminateGlassesBlocks()
     {
         GameObject selectedStack = Stacks[selectedStackIndex];
+        selectedStack.GetComponent<Stack>().DestroyGlassesBlocks();
+    }
 
-        for (int i = 0; i < selectedStack.transform.childCount; i++)
-        {
-            GameObject currentRow = selectedStack.transform.GetChild(i).gameObject;
+    public void RestartStacks()
+    {
+        Physics.simulationMode = SimulationMode.Script;
+        RestoreStacks();
+    }
 
-            for (int j = 0; j < currentRow.transform.childCount; j++)
-            {
-                GameObject currentPosition = currentRow.transform.GetChild(j).gameObject;
+    private void RestoreStacks()
+    {
+        DestroyAllBlocks();
+        RecreateAllBlocks();
+    }
 
-                if (currentPosition.transform.childCount > 0)
-                {
-                    GameObject block = currentPosition.transform.GetChild(0).gameObject;
+    private void DestroyAllBlocks()
+    {
+        GameObject selectedStack = Stacks[selectedStackIndex];
+        selectedStack.GetComponent<Stack>().DestroyAllBlocks();
+    }
 
-                    if (block.tag == "glass")
-                    {
-                        Destroy(block);
-                    }
-                }
-            }
-
-        }
-
-        
+    private void RecreateAllBlocks()
+    {
+        GameObject selectedStack = Stacks[selectedStackIndex];
+        selectedStack.GetComponent<Stack>().CreateBlocks();
     }
 }

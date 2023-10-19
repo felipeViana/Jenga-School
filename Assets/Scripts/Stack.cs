@@ -34,34 +34,37 @@ public class Stack : MonoBehaviour
         if (!hasLoaded && DataFetch.Instance.HasLoaded())
         {
             hasLoaded = true;
+            CreateBlocks();
+        }    
+    }
 
-            List<SchoolConcept> concepts = DataFetch.Instance.GetConceptsForGrade(grade);
+    public void CreateBlocks()
+    {
+        List<SchoolConcept> concepts = DataFetch.Instance.GetConceptsForGrade(grade);
 
-            int conceptIndex = 0;
-            int levels = concepts.Count / 6 + 1;
-            
-            for (int levelIndex = 0; levelIndex < levels; levelIndex++)
+        int conceptIndex = 0;
+        int levels = concepts.Count / 6 + 1;
+
+        for (int levelIndex = 0; levelIndex < levels; levelIndex++)
+        {
+            GameObject RowX = transform.GetChild(0 + levelIndex * 2).gameObject;
+            for (int i = 0; i < 3; i++)
             {
-                GameObject RowX = transform.GetChild(0 + levelIndex * 2).gameObject;
-                for (int i = 0; i < 3; i++)
-                {
-                    if (conceptIndex >= concepts.Count) continue;
-                    var positionX = RowX.transform.GetChild(i).gameObject;
-                    CreateBlockAt(positionX.transform, concepts[conceptIndex]);
-                    conceptIndex++;
-                }
+                if (conceptIndex >= concepts.Count) continue;
+                var positionX = RowX.transform.GetChild(i).gameObject;
+                CreateBlockAt(positionX.transform, concepts[conceptIndex]);
+                conceptIndex++;
+            }
 
-                GameObject RowZ = transform.GetChild(1 + levelIndex * 2).gameObject;
-                for (int i = 0; i < 3; i++)
-                {
-                    if (conceptIndex >= concepts.Count) continue;
-                    var positionZ = RowZ.transform.GetChild(i).gameObject;
-                    CreateBlockAt(positionZ.transform, concepts[conceptIndex]);
-                    conceptIndex++;
-                }
+            GameObject RowZ = transform.GetChild(1 + levelIndex * 2).gameObject;
+            for (int i = 0; i < 3; i++)
+            {
+                if (conceptIndex >= concepts.Count) continue;
+                var positionZ = RowZ.transform.GetChild(i).gameObject;
+                CreateBlockAt(positionZ.transform, concepts[conceptIndex]);
+                conceptIndex++;
             }
         }
-        
     }
 
     private GameObject CreateBlockAt(Transform transform, SchoolConcept concept)
@@ -85,5 +88,47 @@ public class Stack : MonoBehaviour
 
         newBlock.GetComponent<Block>().SetConcept(concept);
         return newBlock;
+    }
+
+    public void DestroyGlassesBlocks()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject currentRow = transform.GetChild(i).gameObject;
+
+            for (int j = 0; j < currentRow.transform.childCount; j++)
+            {
+                GameObject currentPosition = currentRow.transform.GetChild(j).gameObject;
+
+                if (currentPosition.transform.childCount > 0)
+                {
+                    GameObject block = currentPosition.transform.GetChild(0).gameObject;
+
+                    if (block.tag == "glass")
+                    {
+                        Destroy(block);
+                    }
+                }
+            }
+        }
+    }
+
+    public void DestroyAllBlocks()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject currentRow = transform.GetChild(i).gameObject;
+
+            for (int j = 0; j < currentRow.transform.childCount; j++)
+            {
+                GameObject currentPosition = currentRow.transform.GetChild(j).gameObject;
+
+                if (currentPosition.transform.childCount > 0)
+                {
+                    GameObject block = currentPosition.transform.GetChild(0).gameObject;
+                    Destroy(block);
+                }
+            }
+        }
     }
 }
